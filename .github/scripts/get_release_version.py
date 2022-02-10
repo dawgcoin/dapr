@@ -26,11 +26,11 @@ with open(os.getenv("GITHUB_ENV"), "a") as githubEnv:
 
     if gitRef is None or not gitRef.startswith((tagRefPrefix, nightlyTagPrefix)):
         githubEnv.write("REL_VERSION=edge\n")
-        githubEnv.write("RELEASE_TO_GH=False")
+        githubEnv.write("RELEASE_TO_GH=False\n")
         print ("This is daily build from {}...".format(gitRef))
         sys.exit(0)
 
-    githubEnv.write("RELEASE_TO_GH=True")
+    githubEnv.write("RELEASE_TO_GH=True\n")
 
     if gitRef.find("nightly") > 0:
         print ("Nightly build for {}...".format(gitRef))
@@ -57,4 +57,3 @@ with open(os.getenv("GITHUB_ENV"), "a") as githubEnv:
 
     githubEnv.write("REL_VERSION={}\n".format(releaseVersion))
     githubEnv.write("REL_TAG=v{}\n".format(releaseVersion))
-    
