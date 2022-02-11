@@ -15,7 +15,7 @@
 name: dapr-nightly
 on:
   schedule:
-    - cron:  '00 15 * * *'
+    - cron:  '30 15 * * *'
 jobs:
   tag-release:
     name: Set-nightly-release-tag
@@ -26,8 +26,8 @@ jobs:
         run: echo "::set-output name=date::$(date +'nightly-%Y-%m-%d-%H')"
       - uses: dev-drprasad/delete-older-releases@v0.2.0
         with:
-         repo: <owner>/<repoName>
-         keep_latest: 2
+         repo: dawgcoin/dapr
+         keep_latest: 1
          delete_tag_pattern: nightly
         env:
          GITHUB_TOKEN: ${{ secrets.DAPR_BOT_TOKEN }}
