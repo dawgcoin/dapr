@@ -15,7 +15,7 @@
 name: dapr-nightly
 on:
   schedule:
-    - cron:  '15 05 * * *'
+    - cron:  '00 15 * * *'
 jobs:
   tag-release:
     name: Set-nightly-release-tag
@@ -23,18 +23,11 @@ jobs:
     steps:
       - name: Get current date
         id: date
-        run: echo "::set-output name=date::$(date +'nightly-%Y-%m-%d')"
-      - name: Checkout branch "master"
-        uses: actions/checkout@v2
+        run: echo "::set-output name=date::$(date +'nightly-%Y-%m-%d-%H')"
+      - uses: dev-drprasad/delete-older-releases@v0.2.0
         with:
-          token: ${{ secrets.DAPR_BOT_TOKEN }}
-          ref: 'master'
-      - name: Tag snapshot
-        uses: tvdias/github-tagger@v0.0.1
-        with:
-          repo-token: ${{ secrets.DAPR_BOT_TOKEN }}
-          tag: ${{ steps.date.outputs.date }}
-
-# TODO
-# Check if there were changes since last release before tagging
-# Purge older releases
+         repo: <owner>/<repoName>
+         keep_latest: 2
+         delete_tag_pattern: nightly
+        env:
+         GITHUB_TOKEN: ${{ secrets.DAPR_BOT_TOKEN }}
