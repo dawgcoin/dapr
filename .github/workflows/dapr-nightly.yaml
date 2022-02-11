@@ -15,7 +15,7 @@
 name: dapr-nightly
 on:
   schedule:
-    - cron:  '00 22 * * *'
+    - cron:  '15 05 * * *'
 jobs:
   tag-release:
     name: Set-nightly-release-tag
