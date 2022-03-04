@@ -76,7 +76,7 @@ jobs:
       - name: Check out code into the Go module directory
         uses: actions/checkout@v2
       - name: Parse release version and set REL_VERSION
-        run: python ./.github/scripts/get_release_version.py github.event_name
+        run: python ./.github/scripts/get_release_version.py ${{ github.event_name }}
       - name: Check white space in .md files
         if: matrix.target_os == 'linux' && github.event_name == 'pull_request'
         run: |
@@ -182,7 +182,7 @@ jobs:
           sudo apt install docker-ce
           docker -v
       - name: Parse release version and set REL_VERSION
-        run: python ./.github/scripts/get_release_version.py github.event_name
+        run: python ./.github/scripts/get_release_version.py ${{ github.event_name }}
       - name: Update Helm chart files for release version ${{ env.REL_VERSION }}
         run: bash ./.github/scripts/set_helm_dapr_version.sh
       - name: Generate helm chart manifest
